@@ -3,8 +3,7 @@ import { useContext } from "react";
 import { categoryContext } from "../context/categoryContext";
 import { CardContext } from "../context/CardContext";
 export default function Home() {
-  const { products } = useContext(CardContext);
-  const { selectCategory } = useContext(categoryContext);
+  const { selectCategory, products } = useContext(CardContext);
   const filterProducts = selectCategory
     ? products.filter((item) => item.p_category === selectCategory)
     : products;

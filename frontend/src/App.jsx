@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Navbar from "../pages/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ProductDetail from "../components/ProductDetail";
 import Cart from "../pages/Cart";
 import Login from "../pages/Login";

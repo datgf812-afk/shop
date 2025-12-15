@@ -5,8 +5,8 @@ import { useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
-  const { totalCard, setUser, user } = useContext(CardContext);
-  const { setSelectCategory } = useContext(categoryContext);
+  const { setSelectCategory, totalCard, setUser, user } =
+    useContext(CardContext);
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);

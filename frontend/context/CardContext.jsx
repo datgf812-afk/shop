@@ -7,6 +7,7 @@ export function CardProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [selectCategory, setSelectCategory] = useState(null);
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
@@ -220,6 +221,8 @@ export function CardProvider({ children }) {
         plusMinus,
         handleCheckOut,
         Select,
+        selectCategory,
+        setSelectCategory,
       }}
     >
       {children}
