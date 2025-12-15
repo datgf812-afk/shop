@@ -1,10 +1,6 @@
-import { useContext, useState, useEffect } from "react";
-import { CardContext } from "../context/CardContext";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Admin() {
-  const navigate = useNavigate();
-  const { user } = useContext(CardContext);
   const [tab, setTab] = useState("products");
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);

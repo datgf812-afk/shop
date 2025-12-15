@@ -1,6 +1,5 @@
 import Productcard from "../components/ProductCard";
 import { useContext } from "react";
-import { categoryContext } from "../context/categoryContext";
 import { CardContext } from "../context/CardContext";
 export default function Home() {
   const { selectCategory, products } = useContext(CardContext);

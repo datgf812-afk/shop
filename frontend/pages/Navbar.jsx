@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { CardContext } from "../context/CardContext";
-import { categoryContext } from "../context/categoryContext";
 import { useContext } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
   const { setSelectCategory, totalCard, setUser, user } =
