@@ -10,7 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   async function register() {
-    const res = await fetch("http://localhost:5000/register", {
+    const res = await fetch("https://shop-ll18.onrender.com/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -28,7 +28,7 @@ export default function Login() {
     setResultSign(true);
   }
   async function handleLogin() {
-    const res = await fetch("http://localhost:5000/login", {
+    const res = await fetch("https://shop-ll18.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export default function Login() {
       return console.log("Dang nhap that bai");
     }
     localStorage.setItem("token", data.token);
-    const dataUser = await fetch("http://localhost:5000/profile", {
+    const dataUser = await fetch("https://shop-ll18.onrender.com/profile", {
       headers: { Authorization: "Bearer " + data.token },
     }).then((res) => res.json());
     setUser(dataUser.user);

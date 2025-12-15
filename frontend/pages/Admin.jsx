@@ -14,7 +14,7 @@ export default function Admin() {
     const token = localStorage.getItem("token");
     try {
       const res = await fetch(
-        `http://localhost:5000/admin/products/${editingProduct.p_id}`,
+        `https://shop-ll18.onrender.com/admin/products/${editingProduct.p_id}`,
         {
           method: "PUT",
           headers: {
@@ -81,19 +81,22 @@ export default function Admin() {
     const token = localStorage.getItem("token");
     try {
       if (tab === "products") {
-        const res = await fetch("http://localhost:5000/admin/products", {
-          headers: { Authorization: "Bearer " + token },
-        });
+        const res = await fetch(
+          "https://shop-ll18.onrender.com/admin/products",
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        );
         const data = await res.json();
         setProducts(data.products || []);
       } else if (tab === "orders") {
-        const res = await fetch("http://localhost:5000/admin/orders", {
+        const res = await fetch("https://shop-ll18.onrender.com/admin/orders", {
           headers: { Authorization: "Bearer " + token },
         });
         const data = await res.json();
         setOrders(data.orders || []);
       } else if (tab === "users") {
-        const res = await fetch("http://localhost:5000/admin/users", {
+        const res = await fetch("https://shop-ll18.onrender.com/admin/users", {
           headers: { Authorization: "Bearer " + token },
         });
         const data = await res.json();
@@ -109,7 +112,7 @@ export default function Admin() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:5000/admin/products", {
+      const res = await fetch("https://shop-ll18.onrender.com/admin/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -143,10 +146,13 @@ export default function Admin() {
 
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/admin/products/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: "Bearer " + token },
-      });
+      const res = await fetch(
+        `https://shop-ll18.onrender.com/admin/products/${id}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: "Bearer " + token },
+        }
+      );
       const data = await res.json();
       if (data.error) {
         alert("Lỗi: " + data.error);
@@ -162,14 +168,17 @@ export default function Admin() {
   const handleUpdateOrderStatus = async (id, status) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/admin/orders/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify({ status }),
-      });
+      const res = await fetch(
+        `https://shop-ll18.onrender.com/admin/orders/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ status }),
+        }
+      );
       const data = await res.json();
       if (data.error) {
         alert("Lỗi: " + data.error);

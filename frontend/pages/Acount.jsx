@@ -40,7 +40,7 @@ export default function Acount() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
-      const rs = await fetch("http://localhost:5000/update-profile", {
+      const rs = await fetch("https://shop-ll18.onrender.com/update-profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

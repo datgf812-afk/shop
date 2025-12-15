@@ -26,7 +26,7 @@ export function CardProvider({ children }) {
     const token = localStorage.getItem("token");
     if (!token) return Promise.resolve();
     try {
-      const res = await fetch("http://localhost:5000/profile", {
+      const res = await fetch("https://shop-ll18.onrender.com/profile", {
         headers: { Authorization: "Bearer " + token },
       });
       const data = await res.json();
@@ -43,7 +43,7 @@ export function CardProvider({ children }) {
   // Fetch orders
   const fetchOrders = async () => {
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:5000/orders", {
+    const res = await fetch("https://shop-ll18.onrender.com/orders", {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -51,7 +51,7 @@ export function CardProvider({ children }) {
   };
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/products");
+      const res = await fetch("https://shop-ll18.onrender.com/products");
       const pro = await res.json();
       setProducts(pro);
       return pro; // ✅ bắt buộc phải có
@@ -84,7 +84,7 @@ export function CardProvider({ children }) {
   const addCard = async (p_id) => {
     try {
       const token = localStorage.getItem("token");
-      const data = await fetch("http://localhost:5000/update-cart", {
+      const data = await fetch("https://shop-ll18.onrender.com/update-cart", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export function CardProvider({ children }) {
       localStorage.setItem("cart", JSON.stringify(cart));
       return;
     }
-    fetch("http://localhost:5000/plus-minus-cart", {
+    fetch("https://shop-ll18.onrender.com/plus-minus-cart", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -160,7 +160,7 @@ export function CardProvider({ children }) {
       setCart(newCart);
       return;
     }
-    fetch("http://localhost:5000/remove-cart", {
+    fetch("https://shop-ll18.onrender.com/remove-cart", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
