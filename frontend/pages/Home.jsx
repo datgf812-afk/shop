@@ -1,0 +1,25 @@
+import Productcard from "../components/ProductCard";
+import { useContext } from "react";
+import { categoryContext } from "../context/categoryContext";
+import { CardContext } from "../context/CardContext";
+export default function Home() {
+  const { products } = useContext(CardContext);
+  const { selectCategory } = useContext(categoryContext);
+  const filterProducts = selectCategory
+    ? products.filter((item) => item.p_category === selectCategory)
+    : products;
+  return (
+    <>
+      <div className="container p-3 justify-centent-between">
+        <h2 className="text-center fw-bold">DANH SÁCH SẢN PHẨM</h2>
+        <div className="row">
+          {filterProducts.map((item) => (
+            <div className="col-12 col-sm-6 col-md-4 mt-3" key={item.p_id}>
+              <Productcard product={item} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}

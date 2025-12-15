@@ -1,0 +1,70 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}
+
+.card-img-top {
+  height: 250px;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+}
+.img-fixed {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  object-position: center;
+}
+.mb-100 {
+  margin-bottom: 100px;
+}
+.img-detail {
+  height: 380px;
+  width: 500px;
+  object-fit: contain;
+  object-position: center;
+}
+/* Ensure the root and html/body fill the viewport and have no gaps */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.position-relative:hover .overlay {
+  opacity: 1;
+}
+
+/* Common resets and app-level helpers */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
