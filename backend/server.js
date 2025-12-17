@@ -57,18 +57,19 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// // Thêm sản phẩm mới vào giỏ hàng
-// app.post("/products", async (req, res) => {
-//   try {
-//     const product = new Products(req.body);
-//     await product.save();
-//     res.json({ message: "Thêm sản phẩm thành công", product });
-//   } catch (err) {
-//     res.json({ error: "Lỗi khi thêm sản phẩm: " + err.message });
-//   }
-// });
+app.get("/search", async (req, res) => {
+  try {
+    const keyword = req.query.q || "";
+    const products = await Products.find({
+      p_name: { $regex: keyword, $options: "i" },
+    });
+    res.json({ products });
+  } catch (e) {
+    res.json({ e: "Lỗi tìm kiếm" });
+  }
+});
 
-// Lấy tất cả sản phẩm trong giỏ hàng
+// Lấy tất cả sản phẩm trong web
 app.get("/products", async (req, res) => {
   const products = await Products.find();
   res.json(products);
@@ -139,7 +140,6 @@ app.put("/update-cart", async (req, res) => {
     await user.save();
     res.json({ user });
   } catch (err) {
-    console.error("Lỗi update-cart:", err);
     res.json({ error: "Có lỗi cập nhật giỏ hàng" });
   }
 });
