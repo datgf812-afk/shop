@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { CardContext } from "../context/CardContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import Cancel from "../components/Cancel";
 export default function CheckOut() {
   const navigate = useNavigate();
   const {
@@ -59,13 +60,13 @@ export default function CheckOut() {
         navigate("/");
       }
     } catch (err) {
-      console.error("Lỗi:", err);
       alert("Lỗi kết nối");
     }
   };
   return (
     <>
-      <div className="container mt-3">
+      <Cancel url="/cart" />
+      <div className="container mt-3 pb-2">
         <h2 className="text-center mb-4 fw-bold">THANH TOÁN</h2>
         <div className="row">
           <div className="col-md-6">

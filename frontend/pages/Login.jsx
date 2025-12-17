@@ -41,14 +41,16 @@ export default function Login() {
     const data = await res.json();
     if (data.error) {
       setResultSign(false);
-      return console.log("Dang nhap that bai");
     }
     localStorage.setItem("token", data.token);
     const dataUser = await fetch("https://shop-ll18.onrender.com/profile", {
       headers: { Authorization: "Bearer " + data.token },
     }).then((res) => res.json());
-    setUser(dataUser.user);
-    navigate("/");
+    if (dataUser.user) {
+      setUser(dataUser.user);
+      document.body.style.overflow = "auto";
+      navigate("/");
+    }
   }
   return (
     <>

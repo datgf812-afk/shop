@@ -6,6 +6,8 @@ export default function Admin() {
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
+
+  // Cập nhật thông tin sản phẩm
   const handleUpdateProduct = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -46,6 +48,7 @@ export default function Admin() {
     }
   };
 
+  // Sửa sản phẩm
   const handleEditProduct = (product) => {
     setEditingProduct(product);
 
@@ -69,10 +72,12 @@ export default function Admin() {
     p_description: "",
   });
 
+  // render dữ liệu sau khi reload
   useEffect(() => {
     fetchData();
   }, [tab]);
 
+  // render dữ liệu
   const fetchData = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -103,6 +108,7 @@ export default function Admin() {
     }
   };
 
+  // Thêm sản phẩm
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -137,6 +143,7 @@ export default function Admin() {
     }
   };
 
+  // Xóa sản phẩm
   const handleDeleteProduct = async (id) => {
     if (!window.confirm("Xác nhận xóa?")) return;
 
@@ -161,6 +168,7 @@ export default function Admin() {
     }
   };
 
+  // Cập nhật đơn hàng
   const handleUpdateOrderStatus = async (id, status) => {
     const token = localStorage.getItem("token");
     try {
@@ -476,7 +484,7 @@ export default function Admin() {
                 </thead>
                 <tbody>
                   {users.map((u) => (
-                    <tr key={u.p_id}>
+                    <tr key={u._id}>
                       <td>{u.name}</td>
                       <td>{u.email}</td>
                       <td>

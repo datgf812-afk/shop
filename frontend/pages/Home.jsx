@@ -11,11 +11,15 @@ export default function Home() {
       <div className="container p-3 justify-centent-between">
         <h2 className="text-center fw-bold">DANH SÁCH SẢN PHẨM</h2>
         <div className="row">
-          {filterProducts.map((item) => (
-            <div className="col-12 col-sm-6 col-md-4 mt-3" key={item.p_id}>
-              <Productcard product={item} />
-            </div>
-          ))}
+          {filterProducts.length === 0 ? (
+            <div className="text-center">Không tìm thấy sản phẩm tương tự</div>
+          ) : (
+            filterProducts.map((item) => (
+              <div className="col-12 col-sm-6 col-md-4 mt-3" key={item.p_id}>
+                <Productcard product={item} />
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>

@@ -1,21 +1,23 @@
 import { useContext, useEffect } from "react";
 import { CardContext } from "../context/CardContext";
+import Cancel from "../components/Cancel";
 export default function History() {
   const { orders, fetchOrders } = useContext(CardContext);
   useEffect(() => {
-    fetchOrders(); // load lần đầu
+    fetchOrders();
 
     const interval = setInterval(() => {
-      fetchOrders(); // tự cập nhật
-    }, 5000); // 5 giây
+      fetchOrders();
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
-      <div className="container mt-3">
-        <h2 className="text-center mb-5 fw-bold">LỊCH SỬ MUA HÀNG</h2>
+      <Cancel url="/" />
+      <div className="container mt-3 pb-2">
+        <h2 className="text-center mb-3 fw-bold">LỊCH SỬ MUA HÀNG</h2>
         {orders.length === 0 ? (
           <p className="text-center">Bạn chưa có đơn hàng nào</p>
         ) : (

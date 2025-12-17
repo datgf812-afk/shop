@@ -11,18 +11,20 @@ export function CardProvider({ children }) {
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
-  // useEffect(() => setCart(JSON.parse(localStorage.getItem("cart")) || []), []);
-  // Lấy giỏ hàng từ user.cart (database)
   const card = user ? user?.cart : cart;
   const [selectItem, setSelectItem] = useState([]);
-  // setSelectItem(card.map((i) => i.p_id));
+
+  // Lưu sản phẩm được chọn thanh toán
   const Select = card.filter((item) => selectItem.includes(item.p_id));
   const navigate = useNavigate();
+
+  // Lưu sản phẩm sau thanh toán
   const handleCheckOut = (Select) => {
     setCheckOut(Select);
     navigate("/checkout?mode=cart");
   };
-  // useEffect(() => setSelectItem(card.map((item) => item.p_id)), [card]);
+
+  // Cập  nhật các thuộc tính của tài khoản
   const fetchUserProfile = async () => {
     const token = localStorage.getItem("token");
     if (!token) return Promise.resolve();
@@ -39,9 +41,8 @@ export function CardProvider({ children }) {
       return Promise.resolve();
     }
   };
-  // useEffect(() => {}, [cart]);
 
-  // Fetch orders
+  // Cập nhật thông tin đơn hàng
   const fetchOrders = async () => {
     const token = localStorage.getItem("token");
     const res = await fetch("https://shop-ll18.onrender.com/orders", {
@@ -50,38 +51,53 @@ export function CardProvider({ children }) {
     const data = await res.json();
     setOrders(data.orders);
   };
+
+  // Cập nhật thuộc tính của sản phẩm
   const fetchProducts = async () => {
     try {
       const res = await fetch("https://shop-ll18.onrender.com/products");
       const pro = await res.json();
       setProducts(pro);
-      return pro; // ✅ bắt buộc phải có
+      return pro;
     } catch (err) {
       return [];
     }
   };
 
+  // Render sản phẩm theo từ khóa tìm kiếm
+  const fetchSearch = async (q) => {
+    if (!q) return;
+    try {
+      const res = await fetch(`https://shop-ll18.onrender.com/search?q=${q}`);
+      const json = await res.json();
+      const data = json.products;
+      setSelectCategory(null);
+      setProducts(data);
+      return;
+    } catch (e) {
+      return;
+    }
+  };
+
+  // Cập nhật thuộc tính tài khoản, sản phẩm, đơn hàng mỗi khi reload
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Wait for products + user profile + orders ALL together
       Promise.all([fetchProducts(), fetchUserProfile(), fetchOrders()])
         .then(() => {
-          console.log("All data loaded");
           setLoading(false);
         })
         .catch(() => {
           setLoading(false);
         });
     } else {
-      // Still need to fetch products even without token
       fetchProducts()
         .then(() => setLoading(false))
         .catch(() => setLoading(false));
     }
   }, []);
 
-  // addCard gửi request tới backend, không dùng local state
+  // Thêm sản phẩm vào giỏ
   const addCard = async (p_id) => {
     try {
       const token = localStorage.getItem("token");
@@ -114,10 +130,10 @@ export function CardProvider({ children }) {
     }
   };
 
-  // Tính tổng số lượng từ database
+  // Tính tổng số lượng sản phẩm trong giỏ hàng
   const totalCard = card.reduce((sum, item) => sum + item.quantity, 0);
 
-  // removeCard gửi API xóa
+  // Tăng giảm số lượng hàng trong giỏ
   const plusMinus = (state, p_id) => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -152,6 +168,8 @@ export function CardProvider({ children }) {
       })
       .catch((err) => console.error("Lỗi kết nối remove-cart:", err));
   };
+
+  // Xóa sản phẩm khỏi giỏ hàng
   const removeCard = (p_id) => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -180,7 +198,7 @@ export function CardProvider({ children }) {
       .catch((err) => console.error("Lỗi kết nối remove-cart:", err));
   };
 
-  // Tính giá từ products array
+  // Tính tổng giá từ của từng sản phẩm
   const priceCard = (p_id) => {
     const cartItem = card.find((item) => item.p_id === p_id);
     const product = products.find((p) => p.p_id === p_id); // p_id là MongoDB _id
@@ -188,10 +206,10 @@ export function CardProvider({ children }) {
     return (product.p_discountPrice || product.p_price) * cartItem.quantity;
   };
 
-  // Tính tổng tiền từ database
+  // Tính tổng tiền của các sản phẩm
   const totalPrice = (Select) =>
     Select.reduce((sum, item) => {
-      const product = products.find((p) => p.p_id === item.p_id);
+      const product = products.find((p) => p._id === item.p_id);
       if (!product) return sum;
       return sum + (product.p_discountPrice || product.p_price) * item.quantity;
     }, 0);
@@ -223,6 +241,7 @@ export function CardProvider({ children }) {
         Select,
         selectCategory,
         setSelectCategory,
+        fetchSearch,
       }}
     >
       {children}

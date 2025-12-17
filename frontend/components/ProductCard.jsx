@@ -1,20 +1,21 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CardContext } from "../context/CardContext";
 export default function Productcard({ product }) {
   const { addCard } = useContext(CardContext);
+  const navigate = useNavigate();
   return (
     <>
-      <div className="card h-100 shadow">
+      <div className="card shadow">
         <div className="position-relative">
           <img className="card-img-top p-1" src={product.p_img} alt="img" />
           <div className="overlay d-flex justify-content-center align-items-center">
-            <Link
+            <button
               className="btn btn-dark w-auto"
-              to={`/products/${product.p_id}`}
+              onClick={() => navigate(`/products/${product.p_id}`)}
             >
               Chi tiết
-            </Link>
+            </button>
           </div>
         </div>
         <div className="card-body">
@@ -36,12 +37,12 @@ export default function Productcard({ product }) {
           <div className="card-footer mt-auto">
             {product.p_stock ? (
               <div className="d-grid gap-2 d-md-flex">
-                <Link
+                <button
                   className="btn btn-dark w-100 w-md-auto"
-                  to={`/products/${product.p_id}`}
+                  onClick={() => navigate(`/products/${product.p_id}`)}
                 >
                   Mua
-                </Link>
+                </button>
                 <button
                   onClick={() => {
                     addCard(product.p_id);

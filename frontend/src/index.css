@@ -32,9 +32,13 @@ body {
 .mb-100 {
   margin-bottom: 100px;
 }
+.mt-4r {
+  margin-top: 4rem;
+}
+
 .img-detail {
-  height: 380px;
-  width: 500px;
+  height: 300px;
+  width: 340px;
   object-fit: contain;
   object-position: center;
 }
@@ -62,7 +66,26 @@ body,
   opacity: 1;
 }
 
-/* Common resets and app-level helpers */
+@media (min-width: 768px) {
+  .border-md {
+    border: 2px solid #000;
+    border-radius: 4px;
+  }
+  .border-end-md {
+    border-right: 1px solid #000;
+  }
+  .p-4r-md {
+    padding: 4rem;
+  }
+  .mt-md {
+    margin-top: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .border-b {
+    border-bottom: 1px solid #000;
+  }
+}
 *,
 *::before,
 *::after {
