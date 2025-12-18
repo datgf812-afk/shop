@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
@@ -11,9 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 mongoose
-  .connect(
-    "mongodb+srv://datshop:dat8122003@cluster0.fu4cysq.mongodb.net/shopdb"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {})
   .catch(() => {});
 
@@ -49,7 +48,7 @@ app.post("/login", async (req, res) => {
     if (!isLogin) return res.json({ error: "Sai mat khau" });
     const token = jwt.sign(
       { _id: user._id, name: user.name, email: user.email, role: user.role },
-      "key"
+      process.env.JWT_SECRET
     );
     res.json({ token });
   } catch (err) {
@@ -69,7 +68,7 @@ app.get("/search", async (req, res) => {
   }
 });
 
-// Lấy tất cả sản phẩm trong web
+// Lấy tất cả sản phẩm
 app.get("/products", async (req, res) => {
   const products = await Products.find();
   res.json(products);
@@ -357,4 +356,5 @@ app.put("/admin/orders/:id", auth, checkAdmin, async (req, res) => {
   }
 });
 
-app.listen(5000, () => {});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {});
