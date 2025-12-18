@@ -1,3 +1,3 @@
 Link demo: https://shop-vray.vercel.app/
 
-Lần đầu truy cập sẽ mất 1 thời gian để khởi động lại server
+Vui lòng đợi khoảng 15-60s trong lần đầu truy cập đầu tiên để hệ thống khởi động
